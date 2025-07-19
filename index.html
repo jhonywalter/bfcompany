@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BF COMPANY - Servicios Integrales</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+  crossorigin="anonymous"
+  />
+  <style>
+    /*@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');*/
+
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+    h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tinos 700', serif; /* 'serif' es el respaldo genérico */
+    font-weight: 700; /* Puedes usar el peso negrita */
+    /* Puedes añadir más estilos aquí, como font-weight, color, etc. */
+    }
+
+    body {
+      /*font-family: 'Segoe UI', sans-serif;*/
+      margin: 0;
+      /*background-color: #111;*/
+      /*color: #fff;*/
+    }
+
+    blockquote {
+            background-color: #f9f9f9;
+            border-left: 5px solid #ccc;
+            margin: 1.5em 10%; /* Margen a los lados para la indentación */
+            padding: 1em;
+            font-style: italic; /* A menudo se ponen en cursiva */
+            color: #555;
+        }
+    blockquote p {
+            margin: 0 0 10px 0; /* Ajusta el margen del párrafo dentro de la cita */
+        }
+
+    h1 {
+      text-align: center;
+      padding: 20px 20px;
+      color: goldenrod;
+      margin: 0;
+    }
+
+    #datos-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .boton-enlace i {
+    margin-right: 4px; /* Espacio a la derecha del icono */
+    font-size: 1.1em; /* Ajusta el tamaño del icono si es necesario */
+    }
+
+    .item {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+
+    .item:nth-child(odd) {
+      background-color: #000;
+    }
+
+    .item img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .item-content {
+      max-width: 700px;
+      text-align: center;
+      padding: 20px;
+    }
+    .item-content ul {
+    list-style: disc; /* Mantiene las viñetas por defecto */
+    margin: 0;        /* Elimina los márgenes externos por defecto */
+    padding-left: 40px; /* Vuelve a añadir un padding para las viñetas */
+    padding-right: 60px; /* Vuelve a añadir un padding para las viñetas */
+    text-align: left; /* Asegura que el texto dentro de la lista se alinee a la izquierda */
+    /* Asegúrate de que el contenedor padre de .item-content (ej. .item o el body) */
+    /* tenga suficiente espacio o no tenga un text-align: center; que lo anule. */
+    }
+    .item-content ul ol {
+    margin-bottom: 5px; /* Espacio entre los elementos de la lista */
+    line-height: 1.4;
+    color: #444; /* Color del texto de la lista */
+    } 
+
+    .item h2 {
+      color: gold;
+      font-size: 28px;
+      margin: 10px 0;
+    }
+
+    .item h3 {
+      color: silver;
+      font-size: 20px;
+      margin: 5px 0;
+    }
+
+    .item p {
+      font-size: 16px;
+      color: #e0e0e0;
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .boton-enlace {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: gold;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .boton-enlace:hover {
+      background-color: #d4af37;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="datos-container">
+    <p style="text-align:center;">Cargando datos...</p>
+  </div>
+
+  <!-- Supabase JS v2 desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://xrweblfijwzrsoqdzqye.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhyd2VibGZpand6cnNvcWR6cXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3MDk4NTMsImV4cCI6MjA2ODI4NTg1M30.lhm1uj1RM9xV8ihy-Ot0uN2te_JmIX6y6zOPPl5KXBg';
+
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function obtenerDatos() {
+      const datosContainer = document.getElementById('datos-container');
+      datosContainer.innerHTML = '<p style="text-align:center;">Cargando datos...</p>';
+
+      const { data, error } = await client
+        .from('content_sections')
+        .select('*')
+        .order('order_index', { ascending: true });
+
+      if (error) {
+        console.error('Error al cargar los datos:', error.message);
+        datosContainer.innerHTML = '<p style="color: red; text-align: center;">Error al cargar los datos.</p>';
+        return;
+      }
+
+      if (data && data.length > 0) {
+        let htmlContent = '';
+
+  data.forEach(item => {
+  // ❌ Ignorar ítems inactivos
+  if (!item.is_active) return;
+
+  // ❌ Ignorar ítems completamente vacíos
+  if (
+    (!item.title || item.title.trim() === '') &&
+    (!item.subtitle || item.subtitle.trim() === '') &&
+    (!item.content || item.content.trim() === '') &&
+    (!item.image_url || item.image_url.trim() === '')
+  ) {
+    return;
+  }
+
+  // ✅ Construir sección visible
+  htmlContent += `
+    <div class="item">
+      <div class="item-content">
+        ${item.image_url ? `<img src="${item.image_url}" alt="${item.title}">` : ''}
+        ${item.title ? `<h1>${item.title}</h1>` : ''}        
+        <!--${item.subtitle ? `<h3>${item.subtitle}</h3>` : ''}-->
+
+
+        ${item.subtitle ? `                        
+                        <h3><ul>
+                            ${item.subtitle.split('\n').map(listItem => `<ol>${listItem.trim()}</ol>`).join('')}
+                        </ul></h3>
+                    ` : ''}
+
+        ${item.content ? `<blockquote><p><em>${item.content}</em></p></blockquote>` : ''}
+        <p>
+        ${item.button_url ? `<a href="${item.button_url}" class="boton-enlace" target="_blank">${item.button_text || 'Más información'} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
+      </div>
+    </div>
+  `;
+});
+
+        datosContainer.innerHTML = htmlContent;
+      } else {
+        datosContainer.innerHTML = '<p style="text-align:center;">No se encontraron datos en la tabla.</p>';
+      }
+    }
+
+    obtenerDatos();
+  </script>
+</body>
+</html>
+
